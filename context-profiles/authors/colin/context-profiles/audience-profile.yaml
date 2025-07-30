@@ -1,0 +1,42 @@
+primary_audience:
+  demographics:
+    title: ""
+    roles: []
+    company_size: ""
+    industry: []
+    location: ""
+    age_range: ""
+  
+  psychographics:
+    mindset: []
+    values: []
+    motivations: []
+  
+  pain_points: []
+
+secondary_audiences:
+  segment_1:
+    description: ""
+    characteristics: []
+    content_needs: []
+  
+  segment_2:
+    description: ""
+    characteristics: []
+    content_needs: []
+
+content_preferences: []
+
+engagement_style: []
+
+platform_preferences:
+  linkedin: ""
+  newsletter: ""
+  twitter: ""
+
+engagement_triggers: []
+
+pain_point_mapping:
+  content_types: []
+  
+  solutions_provided: []

@@ -1,0 +1,57 @@
+core_personality:
+  primary_traits: []
+  
+  balance_points: []
+
+signature_elements:
+  self_deprecating_humor:
+    usage_frequency: ""
+    approach: []
+    avoid: ""
+  
+  creative_metaphors:
+    primary_style: ""
+    approach: []
+    examples: []
+    note: ""
+  
+  sports_metaphors:
+    usage_frequency: ""
+    background: ""
+    elements: []
+    note: ""
+  
+  specific_vivid_details: []
+
+conversational_style:
+  tone: ""
+  engagement_approach: []
+  
+  authenticity_markers: []
+
+structural_patterns:
+  opening_approaches: []
+  
+  content_flow: []
+  
+  conclusion_styles: []
+
+content_themes:
+  product_development: []
+  
+  business_strategy: []
+  
+  personal_journey: []
+  
+  industry_observations: []
+
+platform_adaptations:
+  linkedin: []
+  
+  newsletter: []
+  
+  twitter: []
+
+authenticity_checks: []
+
+critical_avoids: []

@@ -1,0 +1,82 @@
+dual_mode_framework:
+  technical_mode:
+    identity: ""
+    core_personality: []
+    
+    signature_elements:
+      insider_stories: []
+      
+      framework_positioning: []
+      
+      conversational_elements: []
+    
+    key_phrases: []
+  
+  provocateur_mode:
+    identity: ""
+    core_personality: []
+    
+    signature_elements:
+      emotional_dissection: []
+      
+      pattern_recognition: []
+      
+      stoic_elements: []
+    
+    key_phrases: []
+
+shared_core_elements:
+  experience_base: ""
+  authenticity: ""
+  no_bs_approach: ""
+  value_focus: ""
+  audience_respect: ""
+
+voice_implementation:
+  technical_mode_guidelines: []
+  
+  provocateur_mode_guidelines: []
+
+structural_patterns:
+  technical_mode:
+    linkedin_posts: ""
+    newsletters: ""
+    twitter_threads: ""
+  
+  provocateur_mode:
+    linkedin_posts: ""
+    newsletters: ""
+    twitter_threads: ""
+
+authenticity_checks:
+  technical_mode: []
+  
+  provocateur_mode: []
+
+critical_avoids: []
+
+engagement_strategies:
+  technical_mode_hooks: []
+  
+  provocateur_mode_hooks: []
+
+dynamic_content_patterns:
+  technical_mode_specializations:
+    insider_insight_patterns: []
+    
+    credibility_markers: []
+    
+    technical_metrics_focus: []
+    
+    workplace_story_patterns: []
+    
+    scene_elements: []
+
+  provocateur_mode_specializations:
+    direct_challenge_patterns: []
+    
+    psychological_grounding: []
+    
+    cultural_critique_patterns: []
+    
+    psychological_question_patterns: []
