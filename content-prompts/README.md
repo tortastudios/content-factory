@@ -1,4 +1,4 @@
-# Content Prompts Collection - Anonymized Templates
+# Content Prompts Collection - Professional Templates
 
 This directory contains professional-grade content creation prompts and templates designed for AI-assisted content creation. These prompts are based on proven methodologies and integrate with a context-profile system for personalized, authentic content generation.
 
@@ -14,11 +14,21 @@ Use the **context-profile-helper.md** prompt with your AI assistant to create fo
 
 The helper will guide you through detailed questions to build comprehensive profiles that capture your authentic voice and business context.
 
-### Step 2: Populate Content Prompts
-Once you have your YAML profiles, use any prompt from this collection by replacing placeholder syntax like `[INSERT: brand-voice.yaml - signature_elements]` with the actual content from your context profiles.
+### Step 2: Use Context Profiles in Your AI Platform
+**Copy and Paste Method**
+- Copy the populated prompts into ChatGPT, Claude, or your preferred AI system
+- Replace placeholder syntax like `[INSERT: brand-voice.yaml - signature_elements]` with your actual content
+
+**System Prompt Integration**
+Many AI platforms now support system prompts or project knowledge bases:
+- **Claude**: Add your context profiles to the project knowledge base
+- **ChatGPT**: Include context profiles in your custom instructions
+- **Other platforms**: Upload context profiles to your AI workspace
+
+This keeps your brand voice and audience context always available for content creation.
 
 ### Step 3: Generate Consistent Content
-Copy the populated prompts into ChatGPT, Claude, or your preferred AI system for authentic, audience-aligned content generation.
+Use any prompt from this collection by replacing placeholders with content from your context profiles for authentic, audience-aligned content generation.
 
 ## 📁 Directory Structure
 

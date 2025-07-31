@@ -2,33 +2,33 @@
 
 ## Overview
 
-This repository contains structured context profile templates designed for use with Large Language Models (LLMs) such as ChatGPT, Claude, and other AI systems. These profiles provide a standardized framework for defining author personas, audience characteristics, brand voice, business context, and story banks.
+This directory contains structured context profile templates designed for use with AI systems such as ChatGPT, Claude, and other platforms. These profiles provide a standardized framework for defining your authentic voice, audience characteristics, brand voice, business context, and story bank.
 
 ## Purpose
 
-The context profiles serve as comprehensive input templates that can be fed to LLMs to generate highly targeted, consistent, and authentic content. By providing detailed context about the author's voice, audience, and business objectives, these profiles enable AI systems to produce content that maintains brand consistency and resonates with specific target audiences.
+The context profiles serve as comprehensive input templates that can be used with AI systems to generate highly targeted, consistent, and authentic content. By providing detailed context about your voice, audience, and business objectives, these profiles enable AI systems to produce content that maintains brand consistency and resonates with your specific target audience.
 
 ## Structure
 
-Each author's context profile consists of four core components:
+Each context profile consists of four core components:
 
 ### 1. Brand Voice (`brand-voice.yaml`)
 - **Core personality traits** and communication style
-- **Signature elements** that make the voice distinctive
+- **Signature elements** that make your voice distinctive
 - **Tone guidelines** for different content types
 - **Authenticity checks** to maintain consistency
 - **Platform-specific adaptations** for different channels
 
 ### 2. Audience Profile (`audience-profile.yaml`)
-- **Demographics** of target audiences
+- **Demographics** of your target audiences
 - **Psychographics** including mindset, values, and motivations
-- **Pain points** and challenges the audience faces
+- **Pain points** and challenges your audience faces
 - **Engagement preferences** and content consumption habits
 - **Platform-specific behaviors** and expectations
 
 ### 3. Business Context (`business-context.yaml`)
 - **Company positioning** and market differentiation
-- **Services and offerings** provided
+- **Services and offerings** you provide
 - **Business objectives** and success metrics
 - **Competitive advantages** and unique value propositions
 - **Strategic priorities** for content creation
@@ -39,10 +39,19 @@ Each author's context profile consists of four core components:
 - **Character archetypes** and scenarios
 - **Content multiplication strategies** for different platforms
 
-## Usage with LLMs
+## Usage with AI Systems
 
-### Input Method
-Copy the relevant YAML structure into your LLM prompt, then populate the fields with your specific content. The structured format ensures comprehensive context coverage and consistent output quality.
+### Option 1: Copy and Paste Method
+Copy the relevant YAML structure into your AI prompt, then populate the fields with your specific content. The structured format ensures comprehensive context coverage and consistent output quality.
+
+### Option 2: System Prompt Integration
+Many AI platforms now support system prompts or project knowledge bases:
+
+- **Claude**: Add context profiles to your project knowledge base
+- **ChatGPT**: Include context profiles in your custom instructions
+- **Other platforms**: Upload context profiles to your AI workspace
+
+This approach keeps your brand voice and audience context always available for content creation.
 
 ### Best Practices
 1. **Complete Profile Setup**: Fill out all relevant sections for maximum context richness
@@ -73,7 +82,7 @@ Create a [content type] that [specific request]
 - Use in combination with specific content generation requests for best results
 - Regular profile audits ensure continued relevance and effectiveness
 
-## Supported LLM Platforms
+## Supported AI Platforms
 
 These context profiles are compatible with:
 - OpenAI's ChatGPT

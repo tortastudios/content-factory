@@ -46,13 +46,15 @@ Advanced prompt engineering templates designed for professional content creation
 - **Punchy Content Generator** - High-impact, memorable content frameworks
 
 #### 3. **Interactive Workflow** (`claude-artifacts/`)
-A fully interactive HTML application that demonstrates the power of context-enhanced content workflows. This artifact provides a streamlined interface for content creation while maintaining the sophistication of enterprise systems.
+A comprehensive HTML file that can be copied and pasted into Claude Web or Claude Desktop to generate an interactive content creation artifact. This provides a streamlined interface for content creation while maintaining the sophistication of enterprise systems.
 
 **Features:**
 - Guided first-time setup (60 minutes)
 - Rapid content generation for returning users (15 minutes)
 - Multi-platform optimization
 - Real-time quality assurance
+
+**Try it now:** [Content Factory Interactive Workflow](https://claude.ai/public/artifacts/142959fb-0c96-424d-998b-b91fd72f1988) via the public Claude artifact
 
 ---
 
@@ -84,38 +86,39 @@ A fully interactive HTML application that demonstrates the power of context-enha
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Getting Started
 
-### Step 1: Set Up Your Context Profiles
-```bash
-# Clone the repository
-git clone https://github.com/tortastudios/content-factory.git
-cd content-factory
+### Step 1: Copy Files as Needed
+You don't need to clone this repository. Simply copy the files you want to use:
 
-# Start with the context profile helper
-open content-prompts/context-profile-helper.md
-```
+1. **Start with the Context Profile Helper**: Copy `content-prompts/context-profile-helper.md` and use it with your AI assistant
+2. **Create your context profiles**: Build your brand voice, audience, business context, and story bank
+3. **Use the content prompts**: Copy any prompt template and customize it with your context profiles
 
-### Step 2: Create Your Brand Foundation
-Use the **Context Profile Helper** to create four essential YAML files:
-- `brand-voice.yaml` - Your unique voice characteristics
-- `audience-profile.yaml` - Target audience demographics and needs
-- `business-context.yaml` - Company positioning and objectives
-- `story-bank.yaml` - Personal experiences and narratives
+### Step 2: Use Context Profiles in System Prompts
+Many AI platforms now support system prompts or project knowledge bases:
 
-### Step 3: Generate Professional Content
-Choose from our collection of advanced prompts:
-- **Newsletter articles** (800-1200 words)
-- **LinkedIn posts** (professional networking)
-- **Twitter/X threads** (viral engagement)
-- **Blog posts** and thought leadership
-- **Community discussions** and engagement content
+- **Claude**: Add context profiles to your project knowledge base
+- **ChatGPT**: Include context profiles in your custom instructions
+- **Other platforms**: Upload context profiles to your AI workspace
 
-### Step 4: Optimize and Scale
-- Track performance metrics
-- Refine context profiles based on audience response
-- Scale successful approaches across your team
-- Integrate with your existing content workflows
+This approach keeps your brand voice and audience context always available for content creation.
+
+### Step-by-Step Process
+
+1. **Set Up Your Context Profiles**
+   - Use the Context Profile Helper to create four essential YAML files
+   - Define your brand voice, audience, business context, and story bank
+
+2. **Generate Professional Content**
+   - Choose from our collection of advanced prompts
+   - Replace placeholders with your context profile content
+   - Generate content optimized for your platforms
+
+3. **Optimize and Scale**
+   - Track performance metrics
+   - Refine context profiles based on audience response
+   - Scale successful approaches across your team
 
 ---
 
@@ -206,30 +209,6 @@ Choose from our collection of advanced prompts:
 
 ---
 
-## 📈 Success Metrics
-
-After implementing Content Factory, users typically experience:
-
-### **Efficiency Gains**
-- ✅ **60% reduction** in content creation time
-- ✅ **80% improvement** in brand voice consistency
-- ✅ **3x increase** in content output capacity
-- ✅ **90% reduction** in content review cycles
-
-### **Quality Improvements**
-- ✅ **Consistent brand voice** across all platforms
-- ✅ **Audience-aligned messaging** that drives engagement
-- ✅ **Professional-grade content** that builds authority
-- ✅ **Scalable workflows** that maintain quality at scale
-
-### **Business Impact**
-- ✅ **Increased audience engagement** and community building
-- ✅ **Stronger brand positioning** and thought leadership
-- ✅ **Improved content ROI** and performance tracking
-- ✅ **Team productivity** and collaboration improvements
-
----
-
 ## 🚨 Important Notes
 
 ### **Template Limitations**
@@ -251,27 +230,6 @@ After implementing Content Factory, users typically experience:
 
 ---
 
-## 🔧 Technical Requirements
-
-### **Compatible AI Platforms**
-- OpenAI's ChatGPT
-- Anthropic's Claude
-- Google's Gemini
-- Other YAML-compatible AI systems
-
-### **File Formats**
-- YAML context profiles
-- Markdown prompt templates
-- HTML interactive workflows
-- JSON configuration files
-
-### **Browser Compatibility**
-- Modern web browsers (Chrome, Firefox, Safari, Edge)
-- Mobile-responsive design
-- Local storage for data persistence
-
----
-
 ## 📚 Documentation
 
 ### **Getting Started**
@@ -286,41 +244,27 @@ After implementing Content Factory, users typically experience:
 
 ---
 
-## 🤝 About Torta Studios
-
-**Content Factory** is developed by [Torta Studios](https://tortastudios.com), a product development and content creation agency specializing in AI-powered workflows and professional content systems.
-
-### **Our Expertise**
-- **AI-Powered Content Creation**: Advanced prompt engineering and workflow optimization
-- **Brand Voice Development**: Authentic voice preservation and consistency systems
-- **Audience Targeting**: Demographic analysis and psychographic profiling
-- **Multi-Platform Optimization**: Platform-specific content strategies
-- **Performance Analytics**: Content ROI tracking and optimization
-
-### **Services We Offer**
-- **Custom Content Systems**: Tailored workflows for your specific needs
-- **Brand Voice Development**: Comprehensive voice and messaging frameworks
-- **Content Strategy Consulting**: Audience analysis and platform optimization
-- **Team Training**: Implementation and scaling support
-- **Performance Optimization**: Analytics and continuous improvement
-
----
-
 ## 🔗 Additional Resources
 
-### **Public Tools & Resources**
-- **[Public Resources](https://github.com/tortastudios/public-resources)** - Open-source tools, documents, and workflows
-- **[FigTree CLI](https://github.com/tortastudios/figtree-cli)** - Command-line interface for project management
-- **[The Proofing Room](https://theproofingroom.tortastudios.com/)** - Content review and optimization platform
+### **Torta Studios Public Tools & Resources**
+- **[Public Resources](https://github.com/tortastudios/public-resources)** - Open-source tools, documents, and workflows from Torta Studios
+- **[FigTree CLI](https://github.com/tortastudios/figtree-cli)** - Command-line interface for project management from Torta Studios
+- **[The Proofing Room](https://proofingroom.tortastudios.com/)** - Content review and optimization platform from Torta Studios
+
+### **Resources We Like**
+- **[Writing Benchmark](https://github.com/lechmazur/writing)** - Comprehensive benchmark testing how well LLMs incorporate story elements in creative writing
+- **[Task Master](https://www.task-master.dev/)** - AI-powered project management and task organization system. We love the team here!
+- **[LLM Creativity Research](https://arxiv.org/abs/2505.06120)** - Academic paper on large language model creativity and content generation. Multi-step prompting reduces performance over time.
+- **[Twitter Algorithm](https://github.com/twitter/the-algorithm)** - Open-source implementation of Twitter's recommendation algorithm
 
 ### **Connect With Us**
 - **[Colin Thornton on X](https://x.com/colin_thornton)** - Product development insights and updates
-- **[Bitforth on X](https://x.com/bitforth)** - Technical deep-dives and AI workflow discussions
+- **[Alan Chavez on X](https://x.com/bitforth)** - Technical deep-dives and AI workflow discussions
 
 ### **Stay Updated**
-- **Newsletter**: Subscribe to our build-in-public newsletter for the latest tools and insights
+- **[The Proofing Room Newsletter](https://proofingroom.tortastudios.com/)** - Our newsletter for the latest tools and insights
 - **Community**: Join our community of content creators and AI practitioners
-- **Consulting**: Work with us to implement custom content systems for your business
+- **Consulting**: We occasionally partner with companies to build apps and workflows. Think you might be a fit? Connect with us on X above or reach out directly to colin@tortastudios.com. Let's chat!
 
 ---
 
@@ -329,14 +273,6 @@ After implementing Content Factory, users typically experience:
 This project is licensed under the Business Source License 1.1 – Content Factory Edition. See [LICENSE.md](LICENSE.md) for details.
 
 **Important**: This license includes restrictions on redistribution, resale, and rebranding. For commercial use or customization, please contact Torta Studios.
-
----
-
-## 🚀 Get Started Today
-
-Ready to transform your content creation? Start with our [Context Profile Helper](content-prompts/context-profile-helper.md) and build your professional content system in under an hour.
-
-**Questions or need custom implementation?** [Contact Torta Studios](https://tortastudios.com) for professional consulting and custom solutions.
 
 ---
 

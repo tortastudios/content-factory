@@ -384,6 +384,7 @@ BRAND VOICE:
         <div class="explanation hidden" id="firstTimeExplanation">
             <h4>🔍 Building Your Content DNA</h4>
             <p>We'll collect your brand voice, audience profile, key stories, and content preferences through 15 minutes of rapid Q&A. This creates a reusable context profile that makes AI sound authentically you.</p>
+            <p><strong>What You'll Get:</strong> Professional content for 1-2 platforms + a reusable context package for future 15-minute content creation sessions.</p>
             <p><strong>The Process:</strong> Context Collection (15 min) → Content Creation (30 min) → Platform Cascade (10 min) → Save Your System (5 min)</p>
         </div>
         
@@ -392,7 +393,7 @@ BRAND VOICE:
         </div>
         
         <!-- Phase 1: Context Collection -->
-        <div class="phase active" id="phase1">
+        <div class="phase hidden" id="phase1">
             <div class="phase-header">
                 <div class="phase-number">1</div>
                 <h2>Context Collection (15 minutes)</h2>
@@ -409,8 +410,18 @@ BRAND VOICE:
             </div>
             
             <div class="form-group">
-                <label for="voiceStyle">How do you naturally communicate? (2-3 descriptive words)</label>
-                <input type="text" id="voiceStyle" placeholder="e.g., Conversational, analytical, empathetic">
+                <label for="voiceStyle">How do you naturally communicate? (3-5 descriptive words)</label>
+                <input type="text" id="voiceStyle" placeholder="e.g., Conversational, analytical, empathetic, direct, curious">
+            </div>
+            
+            <div class="form-group">
+                <label for="signaturePhrases">What phrases or expressions do you find yourself using repeatedly?</label>
+                <textarea id="signaturePhrases" placeholder="e.g., 'Here's the thing...', 'What I've learned is...', 'The reality is...'"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="balanceApproach">How do you balance being authoritative with being approachable?</label>
+                <textarea id="balanceApproach" placeholder="e.g., I share specific examples and data, but always acknowledge I'm still learning too"></textarea>
             </div>
             
             <div class="form-group">
@@ -419,8 +430,18 @@ BRAND VOICE:
             </div>
             
             <div class="form-group">
+                <label for="audiencePainPoints">What are 2-3 specific pain points your audience faces?</label>
+                <textarea id="audiencePainPoints" placeholder="e.g., 1. They waste hours on manual data entry 2. They can't track inventory in real-time 3. They lose money on overstocking"></textarea>
+            </div>
+            
+            <div class="form-group">
                 <label for="keyStory">Tell me about a recent business experience that taught you something valuable:</label>
                 <textarea id="keyStory" placeholder="e.g., We launched a feature nobody wanted, learned the importance of customer interviews, now we validate every idea first"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="storyLesson">What's the key lesson or insight from that experience?</label>
+                <textarea id="storyLesson" placeholder="e.g., Always validate assumptions with real customer feedback before building"></textarea>
             </div>
             
             <div class="form-group">
@@ -440,7 +461,10 @@ BRAND VOICE:
                 </select>
             </div>
             
-            <button class="btn" onclick="completePhase1()">Build My Context Profile →</button>
+            <div style="margin-top: 20px;">
+                <button class="btn" onclick="completePhase1()">Build My Context Profile →</button>
+                <button class="btn btn-secondary" onclick="backToLanding()">← Back</button>
+            </div>
         </div>
         
         <!-- Phase 2: Content Creation -->
@@ -495,14 +519,15 @@ BRAND VOICE:
             <div class="form-group">
                 <label for="additionalPlatform">Adapt to which additional platform?</label>
                 <select id="additionalPlatform">
-                    <option value="">Select platform...</option>
+                    <option value="">Select option...</option>
+                    <option value="skip">Skip - I'm happy with my current content</option>
                     <option value="twitter">Twitter Thread (7-tweet format)</option>
                     <option value="linkedin">LinkedIn Post (Professional format)</option>
                     <option value="newsletter">Newsletter Section (Detailed format)</option>
                 </select>
             </div>
             
-            <button class="btn" onclick="adaptContent()">Create Platform Adaptation →</button>
+            <button class="btn" onclick="adaptContent()">Continue →</button>
             
             <div class="content-output hidden" id="adaptedContent"></div>
         </div>
@@ -520,6 +545,11 @@ BRAND VOICE:
                 <div class="checklist-item">✓ Professional content generated using your authentic voice</div>
                 <div class="checklist-item">✓ Multi-platform adaptation completed</div>
                 <div class="checklist-item">✓ Context package ready for future use</div>
+            </div>
+            
+            <div class="context-summary" id="generatedContentSummary">
+                <h3>📝 Your Generated Content</h3>
+                <div id="contentSummaryDisplay"></div>
             </div>
             
             <div class="context-summary">
@@ -600,6 +630,9 @@ BRAND VOICE:
         let currentPhase = 1;
         let contextData = {};
         let generatedContent = '';
+        let adaptedContent = '';
+        let originalPlatform = '';
+        let adaptedPlatform = '';
         let isFirstTime = true;
         
         function startFirstTime() {
@@ -607,12 +640,14 @@ BRAND VOICE:
             document.getElementById('landingScreen').classList.add('hidden');
             document.getElementById('firstTimeExplanation').classList.remove('hidden');
             document.getElementById('progressBar').classList.remove('hidden');
+            currentPhase = 1;
             showPhase(1);
         }
         
         function startReturning() {
             isFirstTime = false;
             document.getElementById('landingScreen').classList.add('hidden');
+            hideAllPhases(); // Hide all phases including the default active Phase 1
             document.getElementById('returningUser').classList.remove('hidden');
         }
         
@@ -630,6 +665,9 @@ BRAND VOICE:
             currentPhase = 1;
             contextData = {};
             generatedContent = '';
+            adaptedContent = '';
+            originalPlatform = '';
+            adaptedPlatform = '';
         }
         
         function loadContext() {
@@ -705,8 +743,12 @@ BRAND VOICE:
             contextData = {
                 name: document.getElementById('name').value,
                 voiceStyle: document.getElementById('voiceStyle').value,
+                signaturePhrases: document.getElementById('signaturePhrases').value,
+                balanceApproach: document.getElementById('balanceApproach').value,
                 audience: document.getElementById('audience').value,
+                audiencePainPoints: document.getElementById('audiencePainPoints').value,
                 keyStory: document.getElementById('keyStory').value,
+                storyLesson: document.getElementById('storyLesson').value,
                 contentPerformance: document.getElementById('contentPerformance').value,
                 businessGoals: document.getElementById('businessGoals').value
             };
@@ -717,6 +759,9 @@ BRAND VOICE:
                 return;
             }
             
+            // Build structured context profiles
+            buildStructuredProfiles();
+            
             // Display context summary
             displayContextSummary();
             
@@ -725,13 +770,75 @@ BRAND VOICE:
             showPhase(2);
         }
         
+        function buildStructuredProfiles() {
+            // Build simplified but structured context profiles
+            contextData.structuredProfiles = {
+                brandVoice: {
+                    corePersonality: {
+                        primaryTraits: contextData.voiceStyle.split(',').map(trait => trait.trim()),
+                        communicationPhilosophy: contextData.balanceApproach || 'Balanced approach to sharing expertise'
+                    },
+                    signatureElements: {
+                        distinctivePhrases: contextData.signaturePhrases ? contextData.signaturePhrases.split(',').map(phrase => phrase.trim()) : [],
+                        balancePoints: {
+                            authorityApproachability: contextData.balanceApproach || 'Shares expertise while remaining accessible'
+                        }
+                    },
+                    structuralPatterns: {
+                        linkedin: {
+                            openingStyle: 'Story-driven or insight-based',
+                            engagementApproach: 'Questions that invite reflection'
+                        },
+                        newsletter: {
+                            openingStyle: 'Personal experience or observation',
+                            contentFlow: 'Story → Insight → Application'
+                        },
+                        twitter: {
+                            openingStyle: 'Contrarian take or quick insight',
+                            engagementApproach: 'Questions that spark discussion'
+                        }
+                    }
+                },
+                audienceProfile: {
+                    primaryAudience: {
+                        description: contextData.audience,
+                        painPoints: contextData.audiencePainPoints ? contextData.audiencePainPoints.split('\n').filter(point => point.trim()) : [],
+                        contentPreferences: contextData.contentPerformance || 'Stories with specific outcomes'
+                    },
+                    engagementStyle: 'Authentic experience sharing with practical insights'
+                },
+                storyBank: {
+                    coreNarratives: [{
+                        story: contextData.keyStory,
+                        lesson: contextData.storyLesson,
+                        category: 'business_journey',
+                        applications: ['positioning', 'validation', 'strategy']
+                    }],
+                    narrativeStructures: {
+                        problemSolution: 'Identify problem → Share experience → Reveal insight → Apply lesson',
+                        journeyStory: 'Challenge → Learning → Transformation → Application'
+                    }
+                },
+                businessContext: {
+                    positioning: contextData.name,
+                    contentStrategy: {
+                        objectives: [contextData.businessGoals],
+                        successMetrics: contextData.contentPerformance || 'Engagement and practical value'
+                    }
+                }
+            };
+        }
+        
         function displayContextSummary() {
             const contextDisplay = document.getElementById('contextDisplay');
             contextDisplay.innerHTML = `
                 <div class="context-item"><strong>Creator:</strong> ${contextData.name}</div>
                 <div class="context-item"><strong>Voice Style:</strong> ${contextData.voiceStyle}</div>
+                <div class="context-item"><strong>Signature Phrases:</strong> ${contextData.signaturePhrases || 'Not provided'}</div>
                 <div class="context-item"><strong>Audience:</strong> ${contextData.audience}</div>
+                <div class="context-item"><strong>Pain Points:</strong> ${contextData.audiencePainPoints || 'Not provided'}</div>
                 <div class="context-item"><strong>Key Story:</strong> ${contextData.keyStory || 'Not provided'}</div>
+                <div class="context-item"><strong>Lesson:</strong> ${contextData.storyLesson || 'Not provided'}</div>
                 <div class="context-item"><strong>Content Performance:</strong> ${contextData.contentPerformance || 'Not provided'}</div>
                 <div class="context-item"><strong>Business Goals:</strong> ${contextData.businessGoals || 'Not specified'}</div>
             `;
@@ -746,6 +853,9 @@ BRAND VOICE:
                 return;
             }
             
+            // Track original platform and content
+            originalPlatform = contentType;
+            
             // Generate content based on context and selections
             generatedContent = createContent(contentType, contentTopic);
             
@@ -757,143 +867,247 @@ BRAND VOICE:
             // Move to phase 3
             currentPhase = 3;
             showPhase(3);
+            
+            // Update platform options to exclude the already-selected platform
+            updatePlatformOptions();
         }
         
         function createContent(type, topic) {
+            const profiles = contextData.structuredProfiles;
             const voiceElements = contextData.voiceStyle.toLowerCase();
             const audienceInfo = contextData.audience;
             const story = contextData.keyStory;
             const name = contextData.name.split(',')[0].trim();
             
             if (type === 'linkedin') {
-                return createLinkedInPost(topic, audienceInfo, story, voiceElements, name);
+                return createLinkedInPost(topic, profiles, name);
             } else if (type === 'newsletter') {
-                return createNewsletterContent(topic, audienceInfo, story, voiceElements, name);
+                return createNewsletterContent(topic, profiles, name);
             } else if (type === 'twitter') {
-                return createTwitterThread(topic, audienceInfo, story, voiceElements, name);
+                return createTwitterThread(topic, profiles, name);
             }
         }
         
-        function createLinkedInPost(topic, audience, story, voice, name) {
-            return `Most people think ${topic.split(' ')[0].toLowerCase()} is straightforward.
-
-I used to be one of them.
-
-${story}
-
-This taught me something important: ${topic}.
-
-Here's what I learned about ${audience.split(' ').slice(0, 3).join(' ')}:
-
-The challenge isn't just ${topic.split(' ').slice(-3).join(' ')}. It's understanding that your audience often sees solutions more clearly than you do.
-
-When ${story.split(' ').slice(0, 10).join(' ')}, I realized we were solving the wrong problem.
-
-The real insight: ${topic} isn't about perfection. It's about listening to what your ${audience.split(' ').slice(0, 2).join(' ')} actually need.
-
-What patterns are you seeing in your ${audience.split(' ').slice(-2).join(' ')} that you might be overlooking?
-
-${voice.includes('analytical') ? 'The data always tells a story - we just need to listen.' : voice.includes('empathetic') ? 'Sometimes the best insights come from genuine curiosity about others.' : 'Experience teaches, but reflection reveals the lessons.'}`;
+        function createLinkedInPost(topic, profiles, name) {
+            const brandVoice = profiles.brandVoice;
+            const audience = profiles.audienceProfile.primaryAudience;
+            const storyBank = profiles.storyBank;
+            const coreStory = storyBank.coreNarratives[0];
+            
+            // Extract opening style and engagement approach
+            const openingStyle = brandVoice.structuralPatterns.linkedin.openingStyle;
+            const engagementApproach = brandVoice.structuralPatterns.linkedin.engagementApproach;
+            
+            // Use signature phrases if available
+            const signaturePhrase = brandVoice.signatureElements.distinctivePhrases.length > 0 
+                ? brandVoice.signatureElements.distinctivePhrases[0] 
+                : 'Here\'s what I learned';
+            
+            // Build content using structured patterns
+            let content = '';
+            
+            if (openingStyle.includes('story-driven')) {
+                content += `Most people think ${topic.split(' ')[0].toLowerCase()} is straightforward.\n\nI used to be one of them.\n\n`;
+            } else {
+                content += `${signaturePhrase}: ${topic} isn't what most people think it is.\n\n`;
+            }
+            
+            content += `${coreStory.story}\n\n`;
+            content += `This taught me something important: ${coreStory.lesson}.\n\n`;
+            content += `Here's what I learned about ${audience.description.split(' ').slice(0, 3).join(' ')}:\n\n`;
+            
+            // Add pain point connection if available
+            if (audience.painPoints.length > 0) {
+                content += `The challenge isn't just ${topic.split(' ').slice(-3).join(' ')}. It's understanding that ${audience.painPoints[0].toLowerCase()}.\n\n`;
+            }
+            
+            content += `When ${coreStory.story.split(' ').slice(0, 10).join(' ')}, I realized we were solving the wrong problem.\n\n`;
+            content += `The real insight: ${topic} isn't about perfection. It's about listening to what your ${audience.description.split(' ').slice(0, 2).join(' ')} actually need.\n\n`;
+            
+            // Add engagement question based on approach
+            if (engagementApproach.includes('reflection')) {
+                content += `What patterns are you seeing in your ${audience.description.split(' ').slice(-2).join(' ')} that you might be overlooking?\n\n`;
+            } else {
+                content += `What's your experience with ${topic.toLowerCase()}?\n\n`;
+            }
+            
+            // Add voice-specific closing
+            const traits = brandVoice.corePersonality.primaryTraits;
+            if (traits.some(trait => trait.toLowerCase().includes('analytical'))) {
+                content += 'The data always tells a story - we just need to listen.';
+            } else if (traits.some(trait => trait.toLowerCase().includes('empathetic'))) {
+                content += 'Sometimes the best insights come from genuine curiosity about others.';
+            } else {
+                content += 'Experience teaches, but reflection reveals the lessons.';
+            }
+            
+            return content;
         }
         
-        function createNewsletterContent(topic, audience, story, voice, name) {
-            return `# ${topic.charAt(0).toUpperCase() + topic.slice(1)}: A ${name.split(' ')[0]} Perspective
-
-## The Moment Everything Changed
-
-${story}
-
-This experience fundamentally shifted how I think about ${topic}. But more importantly, it revealed something crucial about ${audience}.
-
-## What This Means for You
-
-If you're working with ${audience.split(' ').slice(0, 3).join(' ')}, you've probably noticed the same pattern I missed for months:
-
-**The obvious solution isn't always the right solution.**
-
-Here's what I've learned:
-
-### 1. Listen Before You Build
-${story.split('.')[0]}. This taught me that assumptions, even educated ones, can blind us to better approaches.
-
-### 2. Your Audience Knows More Than You Think
-${audience} often understand their problems better than we understand our solutions. The key is creating space for that knowledge to surface.
-
-### 3. ${topic.charAt(0).toUpperCase() + topic.slice(1)} is a Conversation, Not a Broadcast
-${voice.includes('conversational') ? 'Every interaction is an opportunity to learn something new.' : 'The best insights come from genuine dialogue.'}
-
-## The Practical Application
-
-Next time you're facing ${topic}, try this:
-
-1. **Ask before you assume** - What does your ${audience.split(' ').slice(0, 2).join(' ')} actually need?
-2. **Test before you scale** - Small experiments reveal big insights
-3. **Listen for patterns** - Your audience will tell you what works
-
-## What's Next
-
-${voice.includes('analytical') ? 'I\'ll be tracking how this approach performs and sharing the data.' : 'I\'d love to hear how this resonates with your experience.'}
-
-What patterns are you seeing that challenge your assumptions?
-
-${name}`;
+        function createNewsletterContent(topic, profiles, name) {
+            const brandVoice = profiles.brandVoice;
+            const audience = profiles.audienceProfile.primaryAudience;
+            const storyBank = profiles.storyBank;
+            const coreStory = storyBank.coreNarratives[0];
+            const businessContext = profiles.businessContext;
+            
+            // Extract newsletter structure
+            const contentFlow = brandVoice.structuralPatterns.newsletter.contentFlow;
+            const openingStyle = brandVoice.structuralPatterns.newsletter.openingStyle;
+            
+            // Use signature phrases if available
+            const signaturePhrase = brandVoice.signatureElements.distinctivePhrases.length > 0 
+                ? brandVoice.signatureElements.distinctivePhrases[0] 
+                : 'Here\'s what I learned';
+            
+            let content = `# ${topic.charAt(0).toUpperCase() + topic.slice(1)}: A ${name.split(' ')[0]} Perspective\n\n`;
+            
+            // Opening based on style
+            if (openingStyle.includes('personal experience')) {
+                content += `## The Moment Everything Changed\n\n`;
+                content += `${coreStory.story}\n\n`;
+                content += `This experience fundamentally shifted how I think about ${topic}. But more importantly, it revealed something crucial about ${audience.description}.\n\n`;
+            } else {
+                content += `## ${signaturePhrase}\n\n`;
+                content += `I've been thinking a lot about ${topic} lately, especially after ${coreStory.story.toLowerCase()}.\n\n`;
+            }
+            
+            content += `## What This Means for You\n\n`;
+            content += `If you're working with ${audience.description.split(' ').slice(0, 3).join(' ')}, you've probably noticed the same pattern I missed for months:\n\n`;
+            content += `**The obvious solution isn't always the right solution.**\n\n`;
+            content += `Here's what I've learned:\n\n`;
+            
+            // Add pain points if available
+            if (audience.painPoints.length > 0) {
+                content += `### 1. Listen Before You Build\n`;
+                content += `${coreStory.story.split('.')[0]}. This taught me that ${audience.painPoints[0].toLowerCase()}.\n\n`;
+            }
+            
+            content += `### 2. Your Audience Knows More Than You Think\n`;
+            content += `${audience.description} often understand their problems better than we understand our solutions. The key is creating space for that knowledge to surface.\n\n`;
+            
+            content += `### 3. ${topic.charAt(0).toUpperCase() + topic.slice(1)} is a Conversation, Not a Broadcast\n`;
+            const traits = brandVoice.corePersonality.primaryTraits;
+            if (traits.some(trait => trait.toLowerCase().includes('conversational'))) {
+                content += 'Every interaction is an opportunity to learn something new.\n\n';
+            } else {
+                content += 'The best insights come from genuine dialogue.\n\n';
+            }
+            
+            content += `## The Practical Application\n\n`;
+            content += `Next time you're facing ${topic}, try this:\n\n`;
+            content += `1. **Ask before you assume** - What does your ${audience.description.split(' ').slice(0, 2).join(' ')} actually need?\n`;
+            content += `2. **Test before you scale** - Small experiments reveal big insights\n`;
+            content += `3. **Listen for patterns** - Your audience will tell you what works\n\n`;
+            
+            content += `## What's Next\n\n`;
+            if (traits.some(trait => trait.toLowerCase().includes('analytical'))) {
+                content += 'I\'ll be tracking how this approach performs and sharing the data.\n\n';
+            } else {
+                content += 'I\'d love to hear how this resonates with your experience.\n\n';
+            }
+            
+            content += `What patterns are you seeing that challenge your assumptions?\n\n`;
+            content += `${name}`;
+            
+            return content;
         }
         
-        function createTwitterThread(topic, audience, story, voice, name) {
-            return `🧵 THREAD: Most people think ${topic} is simple.
-
-I learned the hard way it's not.
-
-Here's what ${story.split(' ').slice(0, 10).join(' ')} taught me: 👇
-
-1/ ${story.split('.')[0]}.
-
-This was a wake-up call about ${topic}.
-
-2/ The problem: I was solving for what I *thought* ${audience.split(' ').slice(0, 2).join(' ')} needed.
-
-The reality: They needed something completely different.
-
-3/ **Key insight:** Your audience often sees solutions more clearly than you do.
-
-${voice.includes('analytical') ? 'The data proved this repeatedly.' : 'Experience taught me to listen first.'}
-
-4/ Here's what changed everything:
-
-Instead of assuming, I started asking:
-• What's the real problem?
-• What have you tried?
-• What would ideal look like?
-
-5/ Result: ${story.split(' ').slice(-10).join(' ')}.
-
-This wasn't luck. It was listening.
-
-6/ **The pattern:** ${topic} works when you:
-
-→ Ask before you assume
-→ Test before you scale  
-→ Listen for what's unsaid
-
-7/ Question for you:
-
-What patterns are you seeing in your ${audience.split(' ').slice(-2).join(' ')} that challenge your assumptions?
-
-${voice.includes('empathetic') ? 'Curious to hear your experience.' : 'The best insights come from shared experiences.'}`;
+        function createTwitterThread(topic, profiles, name) {
+            const brandVoice = profiles.brandVoice;
+            const audience = profiles.audienceProfile.primaryAudience;
+            const storyBank = profiles.storyBank;
+            const coreStory = storyBank.coreNarratives[0];
+            
+            // Extract Twitter structure
+            const openingStyle = brandVoice.structuralPatterns.twitter.openingStyle;
+            const engagementApproach = brandVoice.structuralPatterns.twitter.engagementApproach;
+            
+            // Use signature phrases if available
+            const signaturePhrase = brandVoice.signatureElements.distinctivePhrases.length > 0 
+                ? brandVoice.signatureElements.distinctivePhrases[0] 
+                : 'Here\'s what I learned';
+            
+            let content = '';
+            
+            // Opening based on style
+            if (openingStyle.includes('contrarian')) {
+                content += `🧵 THREAD: Most people approach ${topic} backwards.\n\n`;
+                content += `I did too, until I learned this lesson the hard way.\n\n`;
+                content += `Here's what changed everything: 👇\n\n`;
+            } else {
+                content += `🧵 THREAD: Most people think ${topic} is simple.\n\n`;
+                content += `I learned the hard way it's not.\n\n`;
+                content += `Here's what ${coreStory.story.split(' ').slice(0, 10).join(' ')} taught me: 👇\n\n`;
+            }
+            
+            content += `1/ ${coreStory.story.split('.')[0]}.\n\n`;
+            content += `This was a wake-up call about ${topic}.\n\n`;
+            
+            content += `2/ The problem: I was solving for what I *thought* ${audience.description.split(' ').slice(0, 2).join(' ')} needed.\n\n`;
+            content += `The reality: They needed something completely different.\n\n`;
+            
+            content += `3/ **Key insight:** Your audience often sees solutions more clearly than you do.\n\n`;
+            const traits = brandVoice.corePersonality.primaryTraits;
+            if (traits.some(trait => trait.toLowerCase().includes('analytical'))) {
+                content += 'The data proved this repeatedly.\n\n';
+            } else {
+                content += 'Experience taught me to listen first.\n\n';
+            }
+            
+            content += `4/ Here's what changed everything:\n\n`;
+            content += `Instead of assuming, I started asking:\n`;
+            content += `• What's the real problem?\n`;
+            content += `• What have you tried?\n`;
+            content += `• What would ideal look like?\n\n`;
+            
+            content += `5/ Result: ${coreStory.story.split(' ').slice(-10).join(' ')}.\n\n`;
+            content += `This wasn't luck. It was listening.\n\n`;
+            
+            content += `6/ **The pattern:** ${topic} works when you:\n\n`;
+            content += `→ Ask before you assume\n`;
+            content += `→ Test before you scale  \n`;
+            content += `→ Listen for what's unsaid\n\n`;
+            
+            content += `7/ Question for you:\n\n`;
+            content += `What patterns are you seeing in your ${audience.description.split(' ').slice(-2).join(' ')} that challenge your assumptions?\n\n`;
+            
+            if (engagementApproach.includes('discussion')) {
+                content += 'The best insights come from shared experiences.';
+            } else if (traits.some(trait => trait.toLowerCase().includes('empathetic'))) {
+                content += 'Curious to hear your experience.';
+            } else {
+                content += 'The best insights come from shared experiences.';
+            }
+            
+            return content;
         }
         
         function adaptContent() {
             const platform = document.getElementById('additionalPlatform').value;
             
             if (!platform) {
-                alert('Please select a platform for adaptation.');
+                alert('Please select an option to continue.');
                 return;
             }
             
-            const adapted = createContent(platform, document.getElementById('contentTopic').value);
+            // Handle skip option
+            if (platform === 'skip') {
+                adaptedPlatform = 'none';
+                adaptedContent = '';
+                // Move directly to phase 4 without creating adapted content
+                currentPhase = 4;
+                showPhase(4);
+                generateContextPackage();
+                return;
+            }
+            
+            // Track adapted platform and generate content
+            adaptedPlatform = platform;
+            adaptedContent = createContent(platform, document.getElementById('contentTopic').value);
             
             const output = document.getElementById('adaptedContent');
-            output.innerHTML = `<h3>📱 ${platform.charAt(0).toUpperCase() + platform.slice(1)} Adaptation</h3>\n\n${adapted}`;
+            output.innerHTML = `<h3>📱 ${platform.charAt(0).toUpperCase() + platform.slice(1)} Adaptation</h3>\n\n${adaptedContent}`;
             output.classList.remove('hidden');
             
             // Move to phase 4
@@ -904,31 +1118,65 @@ ${voice.includes('empathetic') ? 'Curious to hear your experience.' : 'The best 
             generateContextPackage();
         }
         
+        function updatePlatformOptions() {
+            const selectedPlatform = document.getElementById('contentType').value;
+            const dropdown = document.getElementById('additionalPlatform');
+            
+            // Reset dropdown
+            dropdown.innerHTML = `
+                <option value="">Select option...</option>
+                <option value="skip">Skip - I'm happy with my current content</option>
+            `;
+            
+            // Add platforms except the one already selected
+            if (selectedPlatform !== 'twitter') {
+                dropdown.innerHTML += '<option value="twitter">Twitter Thread (7-tweet format)</option>';
+            }
+            if (selectedPlatform !== 'linkedin') {
+                dropdown.innerHTML += '<option value="linkedin">LinkedIn Post (Professional format)</option>';
+            }
+            if (selectedPlatform !== 'newsletter') {
+                dropdown.innerHTML += '<option value="newsletter">Newsletter Section (Detailed format)</option>';
+            }
+        }
+        
         function generateContextPackage() {
+            const profiles = contextData.structuredProfiles;
+            const brandVoice = profiles.brandVoice;
+            const audience = profiles.audienceProfile.primaryAudience;
+            const storyBank = profiles.storyBank;
+            const businessContext = profiles.businessContext;
+            
             const packageContent = `CONTEXT PROFILE - ${contextData.name}
 
 BRAND VOICE:
-- Style: ${contextData.voiceStyle}
-- Approach: ${contextData.voiceStyle.includes('analytical') ? 'Data-driven with specific examples' : contextData.voiceStyle.includes('empathetic') ? 'Human-centered with emotional connection' : 'Conversational with authentic experiences'}
+- Primary Traits: ${brandVoice.corePersonality.primaryTraits.join(', ')}
+- Communication Philosophy: ${brandVoice.corePersonality.communicationPhilosophy}
+- Signature Phrases: ${brandVoice.signatureElements.distinctivePhrases.join(', ') || 'Not specified'}
+- Balance Approach: ${brandVoice.signatureElements.balancePoints.authorityApproachability}
+
+STRUCTURAL PATTERNS:
+- LinkedIn: ${brandVoice.structuralPatterns.linkedin.openingStyle} | ${brandVoice.structuralPatterns.linkedin.engagementApproach}
+- Newsletter: ${brandVoice.structuralPatterns.newsletter.openingStyle} | ${brandVoice.structuralPatterns.newsletter.contentFlow}
+- Twitter: ${brandVoice.structuralPatterns.twitter.openingStyle} | ${brandVoice.structuralPatterns.twitter.engagementApproach}
 
 AUDIENCE PROFILE:
-- Who: ${contextData.audience}
-- Struggles: ${contextData.audience.split(' ').slice(-10).join(' ')}
-- Content Preference: ${contextData.contentPerformance || 'Stories with specific outcomes and practical insights'}
+- Description: ${audience.description}
+- Pain Points: ${audience.painPoints.join('; ') || 'Not specified'}
+- Content Preferences: ${audience.contentPreferences}
+- Engagement Style: ${profiles.audienceProfile.engagementStyle}
 
-KEY STORY BANK:
-- Primary Story: ${contextData.keyStory}
-- Lesson: Audience feedback teaches business strategy
-- Application: Use for positioning, validation, and strategy content
+STORY BANK:
+- Primary Story: ${storyBank.coreNarratives[0].story}
+- Key Lesson: ${storyBank.coreNarratives[0].lesson}
+- Category: ${storyBank.coreNarratives[0].category}
+- Applications: ${storyBank.coreNarratives[0].applications.join(', ')}
+- Narrative Structure: ${storyBank.narrativeStructures.problemSolution}
 
-BUSINESS GOALS:
-- Primary: ${contextData.businessGoals || 'Not specified'}
-- Content Strategy: Build authority through authentic experience sharing
-
-PERFORMANCE PATTERNS:
-- What Works: ${contextData.contentPerformance || 'Transparent stories with specific outcomes'}
-- Voice Consistency: Maintain ${contextData.voiceStyle} tone across all platforms
-- Engagement Driver: Real experience + practical application
+BUSINESS CONTEXT:
+- Positioning: ${businessContext.positioning}
+- Content Objectives: ${businessContext.contentStrategy.objectives.join(', ')}
+- Success Metrics: ${businessContext.contentStrategy.successMetrics}
 
 USAGE INSTRUCTIONS:
 To create new content, paste this context into Claude with:
@@ -937,6 +1185,36 @@ To create new content, paste this context into Claude with:
 This system is ready for 15-minute content creation sessions.`;
             
             document.getElementById('contextPackage').textContent = packageContent;
+            
+            // Display content summary
+            displayContentSummary();
+        }
+        
+        function displayContentSummary() {
+            const summaryDisplay = document.getElementById('contentSummaryDisplay');
+            let summaryHTML = '';
+            
+            // Show original content
+            const platformNames = {
+                'linkedin': 'LinkedIn Post',
+                'newsletter': 'Newsletter',
+                'twitter': 'Twitter Thread'
+            };
+            
+            summaryHTML += `<div class="content-output">
+                <h4>📝 ${platformNames[originalPlatform] || originalPlatform}</h4>
+                ${generatedContent}
+            </div>`;
+            
+            // Show adapted content if any
+            if (adaptedPlatform && adaptedPlatform !== 'none' && adaptedContent) {
+                summaryHTML += `<div class="content-output">
+                    <h4>📱 ${platformNames[adaptedPlatform] || adaptedPlatform} Adaptation</h4>
+                    ${adaptedContent}
+                </div>`;
+            }
+            
+            summaryDisplay.innerHTML = summaryHTML;
         }
         
         function copyContextPackage() {
@@ -999,19 +1277,29 @@ This system is ready for 15-minute content creation sessions.`;
         }
         
         function createLinkedInFromContext(topic, name, context) {
-            return `Most people think ${topic.split(' ')[0]} is straightforward.
+            // Extract a better subject from the topic
+            const topicWords = topic.split(' ');
+            let subject = 'design decisions';
+            
+            // Try to find a better subject from the topic
+            if (topic.toLowerCase().includes('design')) subject = 'design';
+            if (topic.toLowerCase().includes('mistake')) subject = 'avoiding mistakes';
+            if (topic.toLowerCase().includes('automation')) subject = 'automation';
+            if (topic.toLowerCase().includes('framework')) subject = 'frameworks';
+            
+            return `Most people think ${subject} is straightforward.
 
 I used to be one of them.
 
-Then I learned that ${topic} is actually about understanding your audience better than they understand themselves.
+Then I learned that ${topic.toLowerCase().replace('the ', '').replace('how ', '')} is actually about understanding your audience better than they understand themselves.
 
 Here's what changed my perspective:
 
-${topic} isn't just about having the right strategy. It's about listening to the signals your audience is constantly sending you.
+${subject.charAt(0).toUpperCase() + subject.slice(1)} isn't just about having the right strategy. It's about listening to the signals your audience is constantly sending you.
 
 The breakthrough moment: When you stop assuming you know what they need and start paying attention to what they're actually telling you.
 
-This shift in approach has fundamentally changed how I think about ${topic.split(' ').slice(-3).join(' ')}.
+This shift in approach has fundamentally changed how I think about solving problems.
 
 **The key insight:** Your audience often sees solutions more clearly than you do. They're not burdened by your assumptions or technical constraints.
 
@@ -1112,7 +1400,69 @@ What's been your experience?`;
         }
         
         function adaptQuickContent() {
-            alert('Platform adaptation feature coming soon! For now, you can create a new piece by changing the content type above.');
+            // Show platform selection for adaptation
+            const quickContentOutput = document.getElementById('quickContentOutput');
+            const adaptationHTML = `
+                <div style="border-top: 2px solid #e9ecef; padding-top: 20px; margin-top: 20px;">
+                    <h4>📱 Adapt to Another Platform</h4>
+                    <div class="form-group">
+                        <label for="quickAdaptPlatform">Select platform for adaptation:</label>
+                        <select id="quickAdaptPlatform">
+                            <option value="">Select platform...</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="generateQuickAdaptation()">Create Adaptation →</button>
+                    <button class="btn btn-secondary" onclick="cancelQuickAdaptation()">Cancel</button>
+                </div>
+            `;
+            
+            quickContentOutput.innerHTML += adaptationHTML;
+            
+            // Populate platform options excluding current platform
+            const currentPlatform = document.getElementById('quickContentType').value;
+            const dropdown = document.getElementById('quickAdaptPlatform');
+            
+            if (currentPlatform !== 'twitter') {
+                dropdown.innerHTML += '<option value="twitter">Twitter Thread (7-tweet format)</option>';
+            }
+            if (currentPlatform !== 'linkedin') {
+                dropdown.innerHTML += '<option value="linkedin">LinkedIn Post (Professional format)</option>';
+            }
+            if (currentPlatform !== 'newsletter') {
+                dropdown.innerHTML += '<option value="newsletter">Newsletter Section (Detailed format)</option>';
+            }
+        }
+        
+        function generateQuickAdaptation() {
+            const platform = document.getElementById('quickAdaptPlatform').value;
+            const topic = document.getElementById('quickContentTopic').value;
+            const context = document.getElementById('contextPackageInput').value;
+            
+            if (!platform) {
+                alert('Please select a platform for adaptation.');
+                return;
+            }
+            
+            // Generate adapted content
+            const adaptedContent = createContentFromContext(platform, topic, context);
+            
+            // Display the adapted content
+            const quickContentOutput = document.getElementById('quickContentOutput');
+            quickContentOutput.innerHTML += `
+                <div class="content-output" style="margin-top: 20px;">
+                    <h4>📱 ${platform.charAt(0).toUpperCase() + platform.slice(1)} Adaptation</h4>
+                    ${adaptedContent}
+                </div>
+            `;
+        }
+        
+        function cancelQuickAdaptation() {
+            // Remove the adaptation section
+            const quickContentOutput = document.getElementById('quickContentOutput');
+            const adaptationSection = quickContentOutput.querySelector('div[style*="border-top"]');
+            if (adaptationSection) {
+                adaptationSection.remove();
+            }
         }
         
         // Initialize

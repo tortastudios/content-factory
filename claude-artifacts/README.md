@@ -1,13 +1,13 @@
-# Claude Artifacts
+# Interactive Content Workflow
 
 ## Overview
 
-This directory contains interactive HTML artifacts created with Claude AI, specifically designed to demonstrate abbreviated versions of context-enhanced content workflows.
+This directory contains an HTML file that can be loaded into Claude Web or Claude Desktop to generate an interactive content creation artifact. The `workflow-artifact.html` file provides a streamlined, user-friendly interface for content creation while maintaining the sophistication of professional content systems.
 
 ## workflow-artifact.html
 
 ### Purpose
-The `workflow-artifact.html` file is a fully interactive, single-page application that serves as an abbreviated version of the comprehensive "context-enhanced content workflow." It provides a streamlined, user-friendly interface for content creation while maintaining the depth and sophistication of the full workflow system.
+The `workflow-artifact.html` file is a comprehensive HTML file designed to be loaded into Claude Web or Claude Desktop to generate an interactive content creation artifact. It provides a streamlined, user-friendly interface for content creation while maintaining the depth and sophistication of professional content systems.
 
 ### How It Works
 
@@ -58,15 +58,18 @@ This abbreviated version represents approximately 20% of the full context-enhanc
 
 ### Usage Instructions
 
-1. **Open the HTML file** in any modern web browser
-2. **Choose your path**: First-time setup or returning user
-3. **Follow the guided workflow** through each phase
-4. **Generate content** using the configured parameters
-5. **Review and refine** using the quality assurance tools
+1. **Load the HTML file** into Claude Web or Claude Desktop
+2. **Generate the artifact** using Claude's artifact generation capabilities
+3. **Choose your path**: First-time setup or returning user
+4. **Follow the guided workflow** through each phase
+5. **Generate content** using the configured parameters
+6. **Review and refine** using the quality assurance tools
+
+**Try it now:** [Content Factory Interactive Workflow](https://claude.ai/public/artifacts/142959fb-0c96-424d-998b-b91fd72f1988) via the public Claude artifact
 
 ### Benefits
 
-- **Accessibility**: No technical setup required - runs in any browser
+- **Accessibility**: No technical setup required - works directly in Claude
 - **Efficiency**: Reduces content creation time from hours to minutes
 - **Consistency**: Maintains brand voice and messaging standards
 - **Scalability**: Can be used by team members with minimal training
