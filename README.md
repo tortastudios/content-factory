@@ -2,7 +2,7 @@
 
 > **Transform your content creation with enterprise-grade AI workflows, context profiles, and professional templates that maintain your authentic voice across all platforms.**
 
-[![License: Business Source License 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE.md)
+[![License: FSL-1.1-MIT](https://img.shields.io/badge/License-FSL--1.1--MIT-blue.svg)](LICENSE.md)
 [![Made with ❤️ by Torta Studios](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://tortastudios.com)
 
 ---
@@ -270,9 +270,9 @@ This approach keeps your brand voice and audience context always available for c
 
 ## 📄 License
 
-This project is licensed under the Business Source License 1.1 – Content Factory Edition. See [LICENSE.md](LICENSE.md) for details.
+This project uses [FSL-1.1-MIT](LICENSE.md), a source-available license. You can use it for anything except offering a competing product or service. Each version becomes available under the MIT license two years after its release.
 
-**Important**: This license includes restrictions on redistribution, resale, and rebranding. For commercial use or customization, please contact Torta Studios.
+This replaces the earlier custom license.
 
 ---
 
